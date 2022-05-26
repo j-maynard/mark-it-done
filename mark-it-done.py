@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import yaml
+import sys
 from todoist_api_python.api import TodoistAPI
 
-def process_tasks(api, s_id, s_name, p_name):
+def process_tasks(s_id, s_name, p_name):
     tasks = api.get_tasks(section_id = s_id)
     if len(tasks) == 0:
         return
@@ -11,7 +12,7 @@ def process_tasks(api, s_id, s_name, p_name):
         print(f"\tMarking task \"{t.content}\" as complete")
         api.close_task(task_id=t.id)
 
-def process_sections(api, p):
+def process_sections(p):
     sections = api.get_sections(project_id=p.id)
     if len(sections) == 0:
         return
@@ -19,16 +20,27 @@ def process_sections(api, p):
         list(map(lambda s: s.name, sections))]))) 
     done_sections = list(filter(lambda s: s.name in done_sections_names, sections))
     for s in done_sections:
-        process_tasks(api, s.id, s.name, p.name)
+        process_tasks(s.id, s.name, p.name)
 
-with open('config.yml', 'r') as file:
-    config = yaml.safe_load(file)
+config = {}
+try:
+    # Load Config
+    with open('config.yml', 'r') as file:
+        config = yaml.safe_load(file)
+except Exception as error:
+    print("Unable to load config file... Exiting.")
+    sys.exit(1)
 
+if "api_key" not in config:
+    print("Unable to load API key from config... Exiting.")
+    sys.exit(1)
+
+# Create API object
 api = TodoistAPI(config['api_key'])
 
 try:
     projects = api.get_projects()
     for p in projects:
-        process_sections(api, p)
+        process_sections(p)
 except Exception as error:
     print(error)
