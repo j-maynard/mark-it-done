@@ -26,7 +26,7 @@ def process_sections(p):
 config = {}
 try:
     # Load Config
-    with open('config.yml', 'r') as file:
+    with open('config.yaml', 'r') as file:
         config = parse_config('config.yaml')
 except Exception as error:
     print("Unable to load config file... Exiting.")
