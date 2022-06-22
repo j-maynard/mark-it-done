@@ -12,7 +12,7 @@ on:
 
 jobs:
   run_script:
-    name: Run pythong script
+    name: Run python script
     runs-on: ubuntu-22.04
     strategy:
       matrix:
