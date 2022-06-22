@@ -28,6 +28,7 @@ try:
     # Load Config
     with open('config.yaml', 'r') as file:
         config = parse_config('config.yaml')
+        print(config)
 except Exception as error:
     print("Unable to load config file... Exiting.")
     sys.exit(1)
