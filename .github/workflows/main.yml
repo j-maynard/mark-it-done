@@ -32,5 +32,4 @@ jobs:
         env:
           TODOIST_API_KEY: ${{ secrets.TODOIST_API_KEY }}
         run: |
-          ls -l
           python3 mark-it-done.py
