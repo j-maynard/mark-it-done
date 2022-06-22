@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-import yaml
 import sys
 from todoist_api_python.api import TodoistAPI
+from pyaml_env import parse_config
+
 
 def process_tasks(s_id, s_name, p_name):
     tasks = api.get_tasks(section_id = s_id)
@@ -26,7 +27,7 @@ config = {}
 try:
     # Load Config
     with open('config.yml', 'r') as file:
-        config = yaml.safe_load(file)
+        config = parse_config('config.yaml')
 except Exception as error:
     print("Unable to load config file... Exiting.")
     sys.exit(1)
