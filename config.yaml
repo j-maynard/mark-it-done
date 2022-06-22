@@ -3,3 +3,4 @@ done_columns:
   - Done
   - Completed
   - Abandoned
+show_tasks: false

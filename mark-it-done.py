@@ -10,7 +10,8 @@ def process_tasks(s_id, s_name, p_name):
         return
     print(f"Completing tasks in the {s_name} section of {p_name}")
     for t in tasks:
-        print(f"\tMarking task \"{t.content}\" as complete")
+        if config['show_tasks']:
+            print(f"\tMarking task \"{t.content}\" as complete")
         api.close_task(task_id=t.id)
 
 def process_sections(p):
@@ -28,7 +29,6 @@ try:
     # Load Config
     with open('config.yaml', 'r') as file:
         config = parse_config('config.yaml')
-        print(config)
 except Exception as error:
     print("Unable to load config file... Exiting.")
     sys.exit(1)
