@@ -46,3 +46,4 @@ try:
         process_sections(p)
 except Exception as error:
     print(error)
+    sys.exit(1)
